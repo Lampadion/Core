@@ -11,8 +11,8 @@
 				Entry(
 					id: "acute",
 					unicode: "0301",
-					collections: ["diacritic"],
-					ui: (display_groups: ["diacritic-primary"]),
+					collections: [Diacritic], // Use ENUM
+					ui: (display_groups: [DiacriticPrimary]), // Use ENUM
 					options: (
 						fast_key: "A Ф",
 					),
@@ -21,7 +21,7 @@
 					id_template: "acute_{variation}",
 					hidden: true,
 					variation_of: "acute",
-					collections: ["diacritic"],
+					collections: [Diacritic],
 
 					members: [
 						Member(variation: "uncombined", unicode: "00B4"),
