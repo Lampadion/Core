@@ -1,0 +1,19 @@
+[package]
+name = "dataconv"
+description = "Data conversion utilities for Lampadion"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+categories.workspace = true
+keywords.workspace = true
+homepage.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde.workspace = true
+ron.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,12 @@
+(
+    metadata: (
+        id: "common",
+        name: "Common",
+        order: 0,
+        schema_version: 1,
+        description: "",
+    ),
+
+    entries: [
+		],
+)

@@ -1,0 +1,71 @@
+(
+    metadata: (
+        id: "ipa",
+        name: "International Phonetic Alphabet",
+        order: 20015,
+        schema_version: 1,
+        description: "Tone bars and related IPA extensions",
+    ),
+
+    entries: [
+        Entry(
+            id_template: "ipa_n_let_tone_bar_{level}",
+            options: (
+                layout_titles: true,
+                layout_titles_as_main: true,
+            ),
+            members: [
+                Member(level: "extra_high", unicode: "02E5", recipe: ["tn eh"], alt_layout_key: Some("<! 7")),
+                Member(level: "high",       unicode: "02E6", recipe: ["tn h"],  alt_layout_key: Some("<! 8")),
+                Member(level: "mid",        unicode: "02E7", recipe: ["tn m"],  alt_layout_key: Some("<! 9")),
+                Member(level: "low",        unicode: "02E8", recipe: ["tn l"],  alt_layout_key: Some("<! 0")),
+                Member(level: "extra_low",  unicode: "02E9", recipe: ["tn el"], alt_layout_key: Some("<! -")),
+            ],
+        ),
+
+        Entry(
+            id_template: "ipa_n_let_tone_bar_{level}_left_stem",
+            options: (
+                layout_titles: true,
+                layout_titles_as_main: true,
+            ),
+            members: [
+                Member(level: "extra_high", unicode: "A712", recipe: ["tnl eh"], alt_layout_key: "c*<! 7"),
+                Member(level: "high",       unicode: "A713", recipe: ["tnl h"],  alt_layout_key: "c*<! 8"),
+                Member(level: "mid",        unicode: "A714", recipe: ["tnl m"],  alt_layout_key: "c*<! 9"),
+                Member(level: "low",        unicode: "A715", recipe: ["tnl l"],  alt_layout_key: "c*<! 0"),
+                Member(level: "extra_low",  unicode: "A716", recipe: ["tnl el"], alt_layout_key: "c*<! -"),
+            ],
+        ),
+
+        Entry(
+            id_template: "ipa_n_let_tone_bar_{level}_dotted",
+            options: (
+                layout_titles: true,
+                layout_titles_as_main: true,
+            ),
+            members: [
+                Member(level: "extra_high", unicode: "A708", recipe: ["tnd eh"], alt_layout_key: ">!<! 7"),
+                Member(level: "high",       unicode: "A709", recipe: ["tnd h"],  alt_layout_key: ">!<! 8"),
+                Member(level: "mid",        unicode: "A70A", recipe: ["tnd m"],  alt_layout_key: ">!<! 9"),
+                Member(level: "low",        unicode: "A70B", recipe: ["tnd l"],  alt_layout_key: ">!<! 0"),
+                Member(level: "extra_low",  unicode: "A70C", recipe: ["tnd el"], alt_layout_key: ">!<! -"),
+            ],
+        ),
+
+        Entry(
+            id_template: "ipa_n_let_tone_bar_{level}_dotted_left_stem",
+            options: (
+                layout_titles: true,
+                layout_titles_as_main: true,
+            ),
+            members: [
+                Member(level: "extra_high", unicode: "A70D", recipe: ["tndl eh"], alt_layout_key: "c*>!<! 7"),
+                Member(level: "high",       unicode: "A70E", recipe: ["tndl h"],  alt_layout_key: "c*>!<! 8"),
+                Member(level: "mid",        unicode: "A70F", recipe: ["tndl m"],  alt_layout_key: "c*>!<! 9"),
+                Member(level: "low",        unicode: "A710", recipe: ["tndl l"],  alt_layout_key: "c*>!<! 0"),
+                Member(level: "extra_low",  unicode: "A711", recipe: ["tndl el"], alt_layout_key: "c*>!<! -"),
+            ],
+        ),
+    ],
+)

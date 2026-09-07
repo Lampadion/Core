@@ -1,0 +1,42 @@
+(
+    metadata: (
+        id: "diacritic",
+        name: "Diacritic Marks",
+        order: 1,
+        schema_version: 1,
+        description: "Diacritic marks and related characters",
+    ),
+
+    entries: [
+				Entry(
+					id: "acute",
+					unicode: "0301",
+					collections: ["diacritic"],
+					ui: (display_groups: ["diacritic-primary"]),
+					options: (
+						fast_key: "A Ф",
+					),
+				),
+				Entry(
+					id_template: "acute_{variation}",
+					hidden: true,
+					variation_of: "acute",
+					collections: ["diacritic"],
+
+					members: [
+						Member(variation: "uncombined", unicode: "00B4"),
+						Member(variation: "modifier", unicode: "02CA"),
+					],
+				)
+		],
+)
+
+
+	// "acute", {
+	// 	"unicode": "0301",
+	// 	"tags": ["acute", "акут", "ударение"],
+	// 	"groups": ["FK Diacritics Primary"],
+	// 	"alterations": { "uncombined": "00B4", "modifier": "02CA" },
+	// 	"options": { "fastKey": "A Ф" },
+	// 	"symbol": { "category": "Diacritic Mark" }
+	// },
