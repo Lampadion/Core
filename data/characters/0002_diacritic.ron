@@ -3,7 +3,6 @@
         id: "diacritic",
         name: "Diacritic Marks",
         order: 1,
-        schema_version: 1,
         description: "Diacritic marks and related characters",
     ),
 

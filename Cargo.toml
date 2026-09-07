@@ -16,9 +16,16 @@ repository = "https://github.com/Lampadion/Core"
 [workspace.dependencies]
 # Workspace
 dataconv = { path = "crates/dataconv" }
-# External
+# Unicode
+icu = { version = "2", features = ["compiled_data", "serde", "sync"] }
+# Input
+keytap = "0.4" # For keyboard input
+imekit = "0.2" # For IME: forge, vietnamese, pinyin etc.
+# Data
 serde = { version = "1", features = ["derive"] }
 ron = "0.12.2"
+# Localization
+fluent = "0.17"
 
 [workspace.lints.rust]
 unsafe_code = "forbid"

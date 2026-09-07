@@ -3,7 +3,6 @@
         id: "ipa",
         name: "International Phonetic Alphabet",
         order: 20015,
-        schema_version: 1,
         description: "Tone bars and related IPA extensions",
     ),
 
