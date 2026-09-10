@@ -1,0 +1,35 @@
+(
+	meta: (
+		identifier: "bind_file_concept_identifier",
+		name: "Bind File Concept Name",
+		description: "Bind File Concept Description",
+		version: 1,
+	),
+
+	binds: [
+		Mode(Default, [
+			Bind(
+				id: "bind_identifier", // Can be used for overwrite existing identified bind in dedicated bind files
+				target_entry: "character_entry_identifier", // Automatically inferred from the entry this bind is in, however, in dedicated bind files, this field is required
+				key: A,
+				modifiers: [ModifierIdentifier], // [RightAlt, LeftAlt, RightControl, LeftControl, RightShift, LeftShift, RightSuper, LeftSuper]
+			),
+		]),
+		Mode(Domain(DomainName), [ // Target activable mode of Domain Input Mode. Example of domain: Domain::GermanicRunes
+			Bind(
+				id: "bind_identifier",
+				target_entry: "character_entry_identifier",
+				key: B,
+				modifiers: [ModifierIdentifier],
+			),
+		]),
+		Mode(IME(IMEName), [ // Target activable mode of IME Mode. Example of IME: IME::Vietnamese, IME::HanyuPinyin
+			Bind(
+				id: "bind_identifier",
+				target_entry: "character_entry_identifier",
+				key: C,
+				modifiers: [ModifierIdentifier],
+			),
+		])
+	],
+)

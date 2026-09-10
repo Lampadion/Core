@@ -1,0 +1,11 @@
+(
+		metadata: (
+				id: "spaces",
+				name: "Spaces",
+				order: 3,
+				description: "",
+		),
+
+		entries: [
+		],
+)

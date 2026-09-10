@@ -1,17 +1,20 @@
 (
-    metadata: (
-        id: "diacritic",
-        name: "Diacritic Marks",
-        order: 1,
-        description: "Diacritic marks and related characters",
-    ),
+		metadata: (
+				id: "diacritic",
+				name: "Diacritic Marks",
+				order: 1,
+				description: "Diacritic marks and related characters",
+		),
 
-    entries: [
+		entries: [
 				Entry(
 					id: "acute",
-					unicode: "0301",
+					codepoint: 0x0301,
 					collections: [Diacritic], // Use ENUM
-					ui: (display_groups: [DiacriticPrimary]), // Use ENUM
+					ui: (display_groups: [
+						(Forge, [Diacritic])
+						(FastKeys, [DiacriticPrimary])
+						]), // Use ENUM
 					options: (
 						fast_key: "A Ф",
 					),
@@ -23,19 +26,19 @@
 					collections: [Diacritic],
 
 					members: [
-						Member(variation: "uncombined", unicode: "00B4"),
-						Member(variation: "modifier", unicode: "02CA"),
+						Member(variation: "uncombined", codepoint: 0x00B4),
+						Member(variation: "modifier", codepoint: 0x02CA),
 					],
 				)
 		],
 )
 
 
-	// "acute", {
-	// 	"unicode": "0301",
-	// 	"tags": ["acute", "акут", "ударение"],
-	// 	"groups": ["FK Diacritics Primary"],
-	// 	"alterations": { "uncombined": "00B4", "modifier": "02CA" },
-	// 	"options": { "fastKey": "A Ф" },
-	// 	"symbol": { "category": "Diacritic Mark" }
-	// },
+// "acute", {
+// 	"unicode": "0301",
+// 	"tags": ["acute", "акут", "ударение"],
+// 	"groups": ["FK Diacritics Primary"],
+// 	"alterations": { "uncombined": "00B4", "modifier": "02CA" },
+// 	"options": { "fastKey": "A Ф" },
+// 	"symbol": { "category": "Diacritic Mark" }
+// },

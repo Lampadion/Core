@@ -1,0 +1,95 @@
+CharacterEntry(
+	id: "character_entry_identifier",
+	codepoint: 0x0032,
+	character: "",
+	collections: [CollectionIdentifier, CollectionIdentifier],
+	ui: (
+		display_groups: [
+			DisplayGroup(
+				tab: UITabIdentifier,
+				target: DisplayGroupTargetIdentifier,
+			)
+		]
+	),
+	binds: [
+		Mode(Default, [ // Target always active default mode, formerly known as “Fast Keys” in DSL KeyPad
+			Bind(
+				id: "bind_identifier", // Can be used for overwrite existing identified bind in dedicated bind files
+				target_entry: "character_entry_identifier", // Automatically inferred from the entry this bind is in, however, in dedicated bind files, this field is required
+				key: A,
+				modifiers: [ModifierIdentifier], // [RightAlt, LeftAlt, RightControl, LeftControl, RightShift, LeftShift, RightSuper, LeftSuper]
+			),
+		]),
+		Mode(Domain(DomainName), [ // Target activable mode of Domain Input Mode. Example of domain: Domain::GermanicRunes
+			Bind(
+				id: "bind_identifier",
+				target_entry: "character_entry_identifier",
+				key: B,
+				modifiers: [ModifierIdentifier],
+			),
+		]),
+		Mode(IME(IMEName), [ // Target activable mode of IME Mode. Example of IME: IME::Vietnamese, IME::HanyuPinyin
+			Bind(
+				id: "bind_identifier",
+				target_entry: "character_entry_identifier",
+				key: C,
+				modifiers: [ModifierIdentifier],
+			),
+		])
+	],
+	forge: (
+		force_suggest_at_end: false,
+		sequences: [
+			Sequence(
+				sequence: "abc", // Sequence that must be typed in forge mode to access this character
+				shown_sequence: "abc", // Sequence that is shown in GUI
+			)
+		]
+	),
+	library_counter: true,
+	variation_of: Some("character_entry_identifier"), // Optional, for entries with variations, marks this entry as a variation of another entry
+	hidden: false,
+	locale: (
+		reference_locale: "",
+		has_second_name: false,
+		has_letter_locale: false,
+	),
+	legend: (
+		has_legend: false,
+	),
+	phantoms: [ // Optional, creates phantom “duplicates” with required identifiers and parameters
+	// Example of use: Creating dedicated entry for IPA character to be added in IPA Domain Input Mode
+		Phantom(
+			id: "character_entry_identifier_phantom",
+			locale: Some(
+				reference_locale: "",
+				has_second_name: false,
+				has_letter_locale: false,
+			),
+		)
+	],
+)
+
+CharactersEntry(
+	// Default CharacterEntry fields can be used here
+	codepoints: [0x0032, 0x0033], // Replaces codepoint field, allows multiple codepoints for a single entry
+	characters: ["", ""], // Replaces character field, allows multiple characters for a single entry
+)
+
+TemplateEntry(
+	id_template: "character_entry_identifier_{custom_field_name}",
+	/*
+		Can contain default CharacterEntry fields in root as base for members
+	*/
+	members: [
+		Member(
+			custom_field_name: "abc",
+			codepoint: Some(0x0032),
+			// Other optional fields can be added here, such as “forge”, “ui”, etc.
+		),
+		Member(
+			custom_field_name: "def",
+			codepoint: Some(0x0033),
+		),
+	],
+)
