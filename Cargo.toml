@@ -26,6 +26,8 @@ serde = { version = "1", features = ["derive"] }
 ron = "0.12.2"
 # Localization
 fluent = "0.17"
+# Scripting
+rune = "0.14"
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
