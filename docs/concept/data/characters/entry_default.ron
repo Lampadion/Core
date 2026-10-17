@@ -48,7 +48,8 @@
 
 		// ---- Ввод ----
 		recipes: [],                        // [= []] Vec<String>. Рецепты после подстановки шаблонов и ссылок
-		alt_layout_key: None,               // [нет] String. Клавиша режима альтернативного ввода
+		binds: [],                          // [= []] Vec<Bind>. Привязки клавиш по режимам; одновременно отображаются в GUI и регистрируются
+		                                    //   Структуру Bind см. в конце файла. target_entry в записи не хранится: это сама запись (ключ)
 
 		// ---- Поиск и представления ----
 		tags: [],                           // [= []] Vec<String>. Дополнительные поисковые токены; у большинства записей пусто:
@@ -61,12 +62,11 @@
 
 		// ---- GUI ----
 		ui: (
-			display_groups: [],             // [= []] Vec<(Tab, Vec<Group>)>
+			display_groups: [],             // [= []] Vec<(Tab, Vec<Group>)>. Только место записи в GUI; модификаторов группы не несут
 		),
 
 		// ---- Опции ----
 		options: (
-			fast_key: [],                   // [= []] Vec<InputKey>: Latin("A"), Cyrillic("Ф"), Hellenic("α"), Custom("set", "key")
 			layout_titles: false,           // [= false] bool
 			layout_titles_as_main: false,   // [= false] bool
 			font: None,                     // [нет] String
@@ -74,3 +74,20 @@
 		),
 	),
 }
+
+// =====================================================================================
+// ВЛОЖЕННЫЙ ЭТАЛОН: Bind (элемент поля binds)
+//
+// Bind(
+//	mode: Default,          // [= Default] Default | Domain("Name") | IME("Name"); имена берутся из реестра (моды на Rune)
+//	id: None,               // [нет] String. Адрес для переопределения в отдельных файлах: запись + id
+//	key: Latin("A"),        // [обяз., кроме IME] InputKey: Latin("A") | Cyrillic("Ф") | Hellenic("α") | Physical("KeyA") | Custom("set", "key")
+//	modifiers: [],          // [= []] Vec<Modifier>: Alt, LeftAlt, RightAlt, Control, LeftControl, RightControl,
+//	                        //        Shift, LeftShift, RightShift, Super, LeftSuper, RightSuper (без стороны = любая)
+//	locks: [],              // [= []] Vec<Lock>: CapsLock, NumLock, ScrollLock. Не указанный CapsLock означает «выключен»
+//	input: [],              // [предложено] Vec<InputItem>. Только IME: элементы Latin("a") | Sym("полный id") вместо key
+// )
+//
+// Приоритет при совпадении: явный бинд с Shift приоритетнее запасного поведения (Shift вводит то же, что включённый CapsLock);
+// более конкретный бинд (со стороной) приоритетнее общего Shift. Подробно: раздел 8 концепта.
+// =====================================================================================
