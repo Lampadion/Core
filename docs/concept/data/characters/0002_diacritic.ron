@@ -1,0 +1,56 @@
+(
+	metadata: (
+		id: "diacritic",
+		namespace: "diacritic",
+		name: "Diacritic Marks",
+		order: 1,
+		description: "Diacritic marks and related characters",
+		schema_version: 2,
+	),
+
+	entries: [
+		// diacritic:acute
+		Entry(
+			id: "acute",
+			value: Cp(0x0301),
+			collections: [Diacritic], // Use ENUM
+			tags: ["acute", "акут", "ударение"],
+			recipes: ["acute"],
+			ui: (
+				display_groups: [
+					(Forge, [Diacritic]),
+					(FastKeys, [DiacriticPrimary]),
+				],
+			), // Use ENUM
+			options: (
+				fast_key: [Latin("A"), Cyrillic("Ф")],
+			),
+		),
+
+		// diacritic:grave (перенесён из latin_cocept: ссылки на диакритику теперь идут через пространство имён diacritic)
+		Entry(
+			id: "grave",
+			value: Cp(0x0300),
+			collections: [Diacritic],
+			recipes: ["grave"],
+			ui: (
+				display_groups: [
+					(Forge, [Diacritic]),
+				],
+			),
+		),
+
+		// Вариации акута: ´ (uncombined) и ˊ (modifier)
+		Entry(
+			id_template: "acute_{variation}",
+			hidden: true,
+			variation_of: "acute",
+			collections: [Diacritic],
+
+			members: [
+				Member(variation: "uncombined", value: Cp(0x00B4)),
+				Member(variation: "modifier", value: Cp(0x02CA)),
+			],
+		),
+	],
+)

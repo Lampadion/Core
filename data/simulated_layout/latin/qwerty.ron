@@ -3,6 +3,7 @@
 		id: "qwerty",
 		name: "QWERTY",
 		order: 0,
+		target: Layout(Latin),
 		author: "Christopher Latham Sholes",
 	),
 	map: [

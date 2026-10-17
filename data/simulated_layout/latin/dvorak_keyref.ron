@@ -3,6 +3,7 @@
 		id: "dvorak",
 		name: "Dvorak (KeyRef Test)",
 		order: 1,
+		target: Layout(Latin),
 		author: "August Dvorak",
 	),
 	map: [

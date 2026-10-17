@@ -1,0 +1,87 @@
+(
+	metadata: (
+		id: "latin_cocept",
+		namespace: "latin",
+		name: "Latin Cocept",
+		order: 0,
+		description: "",
+		schema_version: 2,
+		requires: ["diacritic"], // Диакритика нужна для ссылочной матрицы ниже
+	),
+
+	entries: [
+		Entry(
+			id_template: "lat_{case}_letter_{letter}",
+
+			// Координатная сетка базовой латиницы
+			matrix: (
+				// Первая ось: весь английский алфавит с указанием шага-смещения от нуля (0..25)
+				"letter": [
+					(id: "a", offset: 0),  (id: "b", offset: 1),  (id: "c", offset: 2),
+					(id: "d", offset: 3),  (id: "e", offset: 4),  (id: "f", offset: 5),
+					(id: "g", offset: 6),  (id: "h", offset: 7),  (id: "i", offset: 8),
+					(id: "j", offset: 9),  (id: "k", offset: 10), (id: "l", offset: 11),
+					(id: "m", offset: 12), (id: "n", offset: 13), (id: "o", offset: 14),
+					(id: "p", offset: 15), (id: "q", offset: 16), (id: "r", offset: 17),
+					(id: "s", offset: 18), (id: "t", offset: 19), (id: "u", offset: 20),
+					(id: "v", offset: 21), (id: "w", offset: 22), (id: "x", offset: 23),
+					(id: "y", offset: 24), (id: "z", offset: 25)
+				],
+
+				// Вторая ось: регистр, задающий стартовую точку в таблице Юникода
+				"case": [
+					(id: "upper", start_codepoint: 0x0041), // 'A'
+					(id: "lower", start_codepoint: 0x0061)  // 'a'
+				]
+			),
+
+			// Алгоритм вычисления кодовой точки для базового слоя
+			calculation_rule: (
+				// Бэкенд берет стартовую точку регистра и прибавляет к ней смещение буквы
+				codepoint: "start_codepoint + offset"
+			),
+
+			// Базовые опции, рецептов (recipes) умышленно нет
+			options: (
+				layout_titles: true,
+				layout_titles_as_main: false
+			)
+		),
+
+		// Атомарные диакритики (dia_mark_acute, dia_mark_grave) теперь живут в diacritic.ron
+		// как diacritic:acute и diacritic:grave.
+
+		Entry(
+			id_template: "lat_{case}_letter_a_with_{accent}",
+
+			// Перекрестная сборка через ссылки на уже существующие записи
+			referenced_matrix: (
+				// Ссылка на семейство базовых букв
+				"base": (
+					entry_id_pattern: "latin:lat_{case}_letter_a",
+					variables: ["case"] // наследуем и пробрасываем регистр
+				),
+				// Всё пространство имён диакритики
+				"modifier": (
+					entry_id_pattern: "diacritic:{accent}",
+					variables: ["accent"], // наследуем и пробрасываем тип акцента
+					filter: (collections: [Diacritic], hidden: false) // вариации (acute_uncombined и т. п.) исключаются
+				)
+			),
+
+			// Каскадные правила слияния
+			merging_rules: (
+				// Рецепт собирается подстановкой значений: для lower + acute получится "a${diacritic:acute}"
+				recipes: Template(["${base}${modifier}"]),
+
+				// Бэкенд склеивает значения "base" и "modifier" в памяти и делает NFC-схлоп.
+				// Если монолитного символа нет, запись не создаётся.
+				value: Compose(normalization: Nfc, on_unresolved: Skip)
+			),
+
+			options: (
+				layout_titles: true
+			)
+		),
+	],
+)

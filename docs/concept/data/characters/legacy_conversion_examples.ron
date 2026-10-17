@@ -1,0 +1,91 @@
+// Перевод четырёх записей старого DSL-KeyPad (JSON) в формат редакции 2.
+// Файл иллюстративный: в реальной базе каждая запись лежит в своём файле и пространстве имён
+// (латиница, спецсимволы, шахматы, и-цзин). Ссылки вида ${dagger} и ${yijing_...} написаны
+// в короткой форме, то есть предполагается, что целевые записи находятся в том же пространстве имён.
+(
+	metadata: (
+		id: "legacy_conversion_examples",
+		namespace: "examples",
+		name: "Legacy conversion examples",
+		order: 99999,
+		description: "Примеры перевода старых записей DSL-KeyPad",
+		schema_version: 2,
+	),
+
+	entries: [
+		// ---------------------------------------------------------------------------------
+		// 1. lat_[c,s]_let_a  ->  см. latin_variations.ron: регулярные alterations описаны одной матрицей
+		//    (стартовые точки по видам), нерегулярные (modifier, small_capital, subscript, combining) списками members.
+		// ---------------------------------------------------------------------------------
+
+		// ---------------------------------------------------------------------------------
+		// 2. dagger_[left,right]_guard  ->  тип 3 (независимые символы), коды идут подряд.
+		//    groups: "Special Characters" -> collections, "Smelting Special" -> вкладка Forge.
+		//    Английские теги совпадают с именами Unicode, поэтому их хранит ICU, а не база.
+		// ---------------------------------------------------------------------------------
+		Entry(
+			id_template: "dagger_{side}_guard",
+			value_sequence: (start: Cp(0x2E36)),
+			collections: [Special],
+			ui: (
+				display_groups: [
+					(Forge, [Special]),
+				],
+			),
+			members: [
+				Member(side: "left",  tags: ["даггер с левой гардой"],  recipes: ["${dagger}\\"]),
+				Member(side: "right", tags: ["даггер с правой гардой"], recipes: ["${dagger}/"]),
+			],
+		),
+
+		// ---------------------------------------------------------------------------------
+		// 3. chess_n_piece_[...]_white  ->  тип 3. recipePrefixes стал шаблоном рецепта "chw {rc}".
+		//    Коды не образуют одну последовательность (2654..2659, 1FA48, 1FA4E..1FA50, 1FA54..1FA55),
+		//    поэтому значения заданы явно. font и applyFontOnRecipeField перенесены в options как GUI-опции.
+		// ---------------------------------------------------------------------------------
+		Entry(
+			id_template: "chess_n_piece_{piece}_white",
+			recipes: ["chw {rc}"],
+			options: (
+				font: "Noto Sans Symbols 2",
+				apply_font_on_recipe_field: false,
+			),
+			members: [
+				Member(piece: "king",         rc: "k",  value: Cp(0x2654)),
+				Member(piece: "queen",        rc: "q",  value: Cp(0x2655)),
+				Member(piece: "rook",         rc: "r",  value: Cp(0x2656)),
+				Member(piece: "bishop",       rc: "b",  value: Cp(0x2657)),
+				Member(piece: "knight",       rc: "nt", value: Cp(0x2658)),
+				Member(piece: "pawn",         rc: "p",  value: Cp(0x2659)),
+				Member(piece: "equihopper",   rc: "eq", value: Cp(0x1FA48)),
+				Member(piece: "knight_queen", rc: "nq", value: Cp(0x1FA4E)),
+				Member(piece: "knight_rook",  rc: "nr", value: Cp(0x1FA4F)),
+				Member(piece: "knight_bishop",rc: "nb", value: Cp(0x1FA50)),
+				Member(piece: "ferz",         rc: "f",  value: Cp(0x1FA54)),
+				Member(piece: "alfil",        rc: "a",  value: Cp(0x1FA55)),
+			],
+		),
+
+		// ---------------------------------------------------------------------------------
+		// 4. yijing_n_sym_digram_{i}_[...]  ->  тип 3. "-{268F...i-1}" это убывающая последовательность
+		//    от 0x268F (268F, 268E, 268D, 268C), то есть value_sequence со step: -1.
+		//    {i} стал переменной участника, она же даёт клавишу "c* {i}".
+		//    Повтор "monogram×2" записан дважды: в концепте нет оператора повторения ссылок.
+		// ---------------------------------------------------------------------------------
+		Entry(
+			id_template: "yijing_n_sym_digram_{i}_{kind}",
+			value_sequence: (start: Cp(0x268F), step: -1),
+			alt_layout_key: "c* {i}",
+			members: [
+				Member(i: "1", kind: "greater_yin",
+					recipes: ["${yijing_n_sym_monogram_1_yin}${yijing_n_sym_monogram_1_yin}", "y gi", "t ddd"]),
+				Member(i: "2", kind: "lesser_yang",
+					recipes: ["${yijing_n_sym_monogram_2_yang}${yijing_n_sym_monogram_1_yin}", "y la", "t dtd"]),
+				Member(i: "3", kind: "lesser_yin",
+					recipes: ["${yijing_n_sym_monogram_1_yin}${yijing_n_sym_monogram_2_yang}", "y li", "t ddt"]),
+				Member(i: "4", kind: "greater_yang",
+					recipes: ["${yijing_n_sym_monogram_2_yang}${yijing_n_sym_monogram_2_yang}", "y ga", "t dtt"]),
+			],
+		),
+	],
+)

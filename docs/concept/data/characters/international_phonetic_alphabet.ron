@@ -1,0 +1,84 @@
+(
+	metadata: (
+		id: "ipa",
+		namespace: "ipa",
+		name: "International Phonetic Alphabet",
+		order: 20015,
+		description: "Tone bars and related IPA extensions",
+		schema_version: 2,
+	),
+
+	entries: [
+		Entry(
+			id_template: "ipa_n_let_tone_bar_{level}",
+			value_sequence: (start: Cp(0x02E5)), // step: 1 по умолчанию; значение = start + индекс участника
+			recipes: ["tn {abbr}"],
+			alt_layout_key: "<! {key}",
+			options: (
+				layout_titles: true,
+				layout_titles_as_main: true,
+			),
+			members: [
+				Member(level: "extra_high", abbr: "eh", key: "7"),
+				Member(level: "high",       abbr: "h",  key: "8"),
+				Member(level: "mid",        abbr: "m",  key: "9"),
+				Member(level: "low",        abbr: "l",  key: "0"),
+				Member(level: "extra_low",  abbr: "el", key: "-"),
+			],
+		),
+
+		Entry(
+			id_template: "ipa_n_let_tone_bar_{level}_left_stem",
+			value_sequence: (start: Cp(0xA712)), // step: 1 по умолчанию; значение = start + индекс участника
+			recipes: ["tnl {abbr}"],
+			alt_layout_key: "c*<! {key}",
+			options: (
+				layout_titles: true,
+				layout_titles_as_main: true,
+			),
+			members: [
+				Member(level: "extra_high", abbr: "eh", key: "7"),
+				Member(level: "high",       abbr: "h",  key: "8"),
+				Member(level: "mid",        abbr: "m",  key: "9"),
+				Member(level: "low",        abbr: "l",  key: "0"),
+				Member(level: "extra_low",  abbr: "el", key: "-"),
+			],
+		),
+
+		Entry(
+			id_template: "ipa_n_let_tone_bar_{level}_dotted",
+			value_sequence: (start: Cp(0xA708)), // step: 1 по умолчанию; значение = start + индекс участника
+			recipes: ["tnd {abbr}"],
+			alt_layout_key: ">!<! {key}",
+			options: (
+				layout_titles: true,
+				layout_titles_as_main: true,
+			),
+			members: [
+				Member(level: "extra_high", abbr: "eh", key: "7"),
+				Member(level: "high",       abbr: "h",  key: "8"),
+				Member(level: "mid",        abbr: "m",  key: "9"),
+				Member(level: "low",        abbr: "l",  key: "0"),
+				Member(level: "extra_low",  abbr: "el", key: "-"),
+			],
+		),
+
+		Entry(
+			id_template: "ipa_n_let_tone_bar_{level}_dotted_left_stem",
+			value_sequence: (start: Cp(0xA70D)), // step: 1 по умолчанию; значение = start + индекс участника
+			recipes: ["tndl {abbr}"],
+			alt_layout_key: "c*>!<! {key}",
+			options: (
+				layout_titles: true,
+				layout_titles_as_main: true,
+			),
+			members: [
+				Member(level: "extra_high", abbr: "eh", key: "7"),
+				Member(level: "high",       abbr: "h",  key: "8"),
+				Member(level: "mid",        abbr: "m",  key: "9"),
+				Member(level: "low",        abbr: "l",  key: "0"),
+				Member(level: "extra_low",  abbr: "el", key: "-"),
+			],
+		),
+	],
+)

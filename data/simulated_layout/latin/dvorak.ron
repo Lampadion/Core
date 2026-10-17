@@ -3,6 +3,7 @@
 		id: "dvorak",
 		name: "Dvorak",
 		order: 1,
+		target: Layout(Latin),
 		author: "August Dvorak",
 		trigger_names: [
 			"00010409", // United States-Dvorak (Windows)
