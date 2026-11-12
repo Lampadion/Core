@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/*"]
+members = ["crates/*", "apps/*"]
 resolver = "3"
 
 [workspace.package]
@@ -15,19 +15,34 @@ repository = "https://github.com/Lampadion/Core"
 
 [workspace.dependencies]
 # Workspace
-dataconv = { path = "crates/dataconv" }
+lampadion-binding = { path = "crates/lampadion-binding" }
+lampadion-compose = { path = "crates/lampadion-compose" }
+lampadion-core = { path = "crates/lampadion-core" }
+lampadion-config = { path = "crates/lampadion-config" }
+lampadion-db = { path = "crates/lampadion-db" }
+lampadion-extensions = { path = "crates/lampadion-extensions" }
+lampadion-keyboard = { path = "crates/lampadion-keyboard", default-features = false }
+lampadion-layout = { path = "crates/lampadion-layout" }
+lampadion-model = { path = "crates/lampadion-model" }
+lampadion-modes = { path = "crates/lampadion-modes" }
+lampadion-scripting = { path = "crates/lampadion-scripting" }
+lampadion-search = { path = "crates/lampadion-search" }
+lampadion-unicode = { path = "crates/lampadion-unicode" }
+lampadion-l10n = { path = "crates/lampadion-l10n" }
 # Unicode
-icu = { version = "2", features = ["compiled_data", "serde", "sync"] }
+icu = { version = "2.4.0", features = ["compiled_data", "serde", "sync"] }
 # Input
-keytap = "0.4" # For keyboard input
-imekit = "0.2" # For IME: forge, vietnamese, pinyin etc.
+keytap = "0.4.0" # For keyboard input
+imekit = "0.2.3" # For IME: forge, vietnamese, pinyin etc.
 # Data
-serde = { version = "1", features = ["derive"] }
-ron = "0.12.2"
+serde = { version = "1.0.229", features = ["derive"] }
+ron = "0.12.3"
 # Localization
-fluent = "0.17"
+fluent-bundle = "0.16.0"
+fluent-langneg = "0.14.2"
+unic-langid = "0.9.6"
 # Scripting
-rune = "0.14"
+rune = "0.14.2"
 
 [workspace.lints.rust]
 unsafe_code = "forbid"

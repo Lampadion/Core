@@ -1,0 +1,20 @@
+[package]
+name = "lampadion-daemon"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+categories.workspace = true
+keywords.workspace = true
+homepage.workspace = true
+repository.workspace = true
+
+[dependencies]
+lampadion-core.workspace = true
+lampadion-db.workspace = true
+lampadion-config.workspace = true
+lampadion-keyboard = { workspace = true, features = ["backend"] }
+
+[lints]
+workspace = true
