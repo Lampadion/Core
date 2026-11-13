@@ -3,6 +3,10 @@ use dioxus::desktop::use_window;
 
 const APP_LOGO: Asset = asset!("/assets/images/lampadion.svg");
 
+const CONTROL_ICON_MINIMIZE: &str = include_str!("../../../assets/graphics/icons/ui/control-minimize.svg");
+const CONTROL_ICON_MAXIMIZE: &str = include_str!("../../../assets/graphics/icons/ui/control-maximize.svg");
+const CONTROL_ICON_CLOSE: &str = include_str!("../../../assets/graphics/icons/ui/control-close.svg");
+
 #[component]
 pub fn Titlebar() -> Element {
     let window = use_window();
@@ -37,7 +41,10 @@ pub fn Titlebar() -> Element {
 							onclick: move |_| {
 							    w_min.set_minimized(true);
 							},
-							"—"
+							div {
+								class: "titlebar__button__icon",
+								dangerous_inner_html: CONTROL_ICON_MINIMIZE,
+							}
 						}
 						button {
 							class: "titlebar__button titlebar__button--maximize",
@@ -46,7 +53,10 @@ pub fn Titlebar() -> Element {
 							    let is_max = w_max.is_maximized();
 							    w_max.set_maximized(!is_max);
 							},
-							"□"
+							div {
+								class: "titlebar__button__icon",
+								dangerous_inner_html: CONTROL_ICON_MAXIMIZE,
+							}
 						}
 						button {
 							class: "titlebar__button titlebar__button--close",
@@ -54,7 +64,10 @@ pub fn Titlebar() -> Element {
 							onclick: move |_| {
 							    w_close.close();
 							},
-							"×"
+							div {
+								class: "titlebar__button__icon",
+								dangerous_inner_html: CONTROL_ICON_CLOSE,
+							}
 						}
 					}
 				}
