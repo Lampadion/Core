@@ -8,7 +8,12 @@ pub fn AppLayout() -> Element {
 			div { id: "app",
 				div { class: "window-container",
 					Titlebar {}
-					main { class: "main-content", HomeView {} }
+					main { class: "main-content",
+						div { class: "main-content__left-island",
+							nav { class: "main-content__nav" }
+						}
+						div { class: "main-content__right-island", HomeView {} }
+					}
 				}
 			}
 		}

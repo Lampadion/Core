@@ -16,6 +16,7 @@ path = "src/main.rs"
 
 [dependencies]
 dioxus = { workspace = true, features = ["desktop"] }
+gloo-timers = { workspace = true, features = ["futures"] }
 
 [features]
 default = ["desktop"]

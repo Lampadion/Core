@@ -1,5 +1,5 @@
-mod layout;
-mod state;
+pub mod layout;
+pub mod state;
 
 use dioxus::prelude::*;
 use layout::AppLayout;

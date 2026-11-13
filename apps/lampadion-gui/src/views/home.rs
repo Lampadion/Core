@@ -4,11 +4,7 @@ use crate::components::navigation::Sidebar;
 #[component]
 pub fn HomeView() -> Element {
     rsx! {
-			div {
-				Sidebar {}
-				main {
-					h1 { "Самое крутое приложение на свете" }
-				}
-			}
+			div { class: "main-content__lists" }
+			div { class: "main-content__info-panel" }
 		}
 }

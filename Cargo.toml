@@ -46,6 +46,8 @@ rune = "0.14.2"
 # GUI
 dioxus = { version = "0.7.10", features = [] }
 
+gloo-timers = { version = "0.4.0", features = ["futures"] }
+
 [workspace.lints.rust]
 unsafe_code = "forbid"
 
