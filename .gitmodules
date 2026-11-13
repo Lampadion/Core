@@ -1,3 +1,0 @@
-[submodule "frontend/lampadion-gui"]
-	path = frontend/lampadion-gui
-	url = https://github.com/Lampadion/UI.git
