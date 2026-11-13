@@ -5,7 +5,11 @@ use crate::components::common::Titlebar;
 #[component]
 pub fn AppLayout() -> Element {
     rsx! {
-			Titlebar {}
-			div { id: "app", HomeView {} }
+			div { id: "app",
+				div { class: "window-container",
+					Titlebar {}
+					main { class: "main-content", HomeView {} }
+				}
+			}
 		}
 }

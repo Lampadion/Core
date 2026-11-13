@@ -37,6 +37,7 @@ fn run() -> Res<()> {
     let mut args = env::args().skip(1);
     match args.next().as_deref() {
         Some("dist") => dist(&DistOpts::parse(args)?),
+        Some("dgui") => dgui(args),
         Some("help" | "-h" | "--help") | None => {
             print_help();
             Ok(())
@@ -207,6 +208,28 @@ fn run_npm(dir: &Path, args: &[&str]) -> Res<()> {
         Ok(())
     } else {
         Err(format!("`npm {}` завершился с ошибкой", args.join(" ")).into())
+    }
+}
+
+// ---------------------------------------------------------------------------
+// dgui
+// ---------------------------------------------------------------------------
+
+/// Запускает Dioxus CLI для разработки GUI.
+fn dgui(args: impl Iterator<Item = String>) -> Res<()> {
+    let root = workspace_root()?;
+
+    let status = Command::new("dx")
+        .current_dir(root)
+        .args(["serve", "--desktop", "--package", "lampadion-gui"])
+        .args(args)
+        .status()
+        .map_err(|e| format!("не удалось запустить Dioxus CLI (`dx`): {e}"))?;
+
+    if status.success() {
+        Ok(())
+    } else {
+        Err("Dioxus CLI завершился с ошибкой".into())
     }
 }
 

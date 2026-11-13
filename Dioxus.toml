@@ -12,6 +12,11 @@ title = "lampadion-gui"
 # include `assets` in web platform
 [web.resource]
 
+[web.watcher]
+reload_html = true
+
+watch_path = ["apps/lampadion-gui/assets", "apps/lampadion-gui/src", "apps/lampadion-gui/Cargo.toml"]
+
 # Additional CSS style files
 style = []
 

@@ -1,0 +1,49 @@
+@use "utils/reset";
+
+@use "abstracts" as *;
+@use "components/titlebar";
+
+html, body, #main {
+    background: transparent !important;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+html {
+	font-size: 12pt;
+	line-height: 1.5;
+	-webkit-text-size-adjust: 100%;
+}
+
+#app {
+	padding: 1.25rem;
+
+	width: 100%;
+	height: 100%;
+}
+
+.window-container {
+	width: 100%;
+	height: 100%;
+	border-radius: 1.5rem;
+	box-shadow: $shadow-application;
+	background-color: rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.main-content {
+	background-color: $background-color-a;
+	border-radius: 1.25rem;
+	flex: 1;
+	overflow: auto;
+}
+
+button {
+	&:hover {
+		background-color: $btn-background-common;
+	}
+}

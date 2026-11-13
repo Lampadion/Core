@@ -44,7 +44,7 @@ unic-langid = "0.9.6"
 # Scripting
 rune = "0.14.2"
 # GUI
-dioxus = { version = "0.7.1", features = [] }
+dioxus = { version = "0.7.10", features = [] }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"

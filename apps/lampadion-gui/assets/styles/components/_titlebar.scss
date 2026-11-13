@@ -1,0 +1,65 @@
+@use "../abstracts" as *;
+
+.titlebar {
+    background-color: $background-color-b;
+		color: $text-a-0;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 2.5rem;
+		padding: 0.5rem 1rem;
+		border-radius: 1.5rem;
+
+		filter: drop-shadow($shadow-a-0);
+
+		user-select: none;
+
+		&__left {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			height: 100%;
+		}
+
+    &__logo {
+			width: 1.25rem;
+			height: 1.25rem;
+    }
+
+    &__title {
+			display: flex;
+			align-items: center;
+			font-size: 0.95rem;
+			height: 100%;
+    }
+
+		&__right {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			height: 100%;
+		}
+
+		&__controls {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				height: 100%;
+		}
+
+		&__button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 2rem;
+			height: 2rem;
+			border-radius: 50%;
+			cursor: pointer;
+
+			box-shadow: $shadow-a-0;
+
+			&--close:hover {
+				background-color: $btn-background-cancel;
+			}
+		}
+}
