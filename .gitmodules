@@ -1,0 +1,3 @@
+[submodule "apps/lampadion-gui/assets/graphics"]
+	path = apps/lampadion-gui/assets/graphics
+	url = https://github.com/Lampadion/Graphics.git
