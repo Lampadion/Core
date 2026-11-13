@@ -15,6 +15,13 @@ name = "gui"
 path = "src/main.rs"
 
 [dependencies]
+dioxus = { workspace = true, features = ["desktop"] }
+
+[features]
+default = ["desktop"]
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]
+mobile = ["dioxus/mobile"]
 
 [lints]
 workspace = true

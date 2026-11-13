@@ -19,7 +19,7 @@ const APP_DIR_NAME: &str = "Lampadion";
 
 // Имена бинарников ([[bin]] name в манифестах приложений).
 const LAUNCHER_BIN: &str = "lampadion";
-const DAEMON_BIN: &str = "daemon";
+const HOST_BIN: &str = "host";
 const CLI_BIN: &str = "cli";
 const GUI_BIN: &str = "gui";
 
@@ -112,10 +112,10 @@ fn dist(opts: &DistOpts) -> Res<()> {
     // Lampadion/lampadion(.exe): лаунчер в корне
     copy_binary(&target_dir, LAUNCHER_BIN, &out, true)?;
 
-    // Lampadion/bin/{daemon,cli,gui}
+    // Lampadion/bin/{host,cli,gui}
     let bin_dir = out.join("bin");
     fs::create_dir_all(&bin_dir)?;
-    copy_binary(&target_dir, DAEMON_BIN, &bin_dir, true)?;
+    copy_binary(&target_dir, HOST_BIN, &bin_dir, true)?;
     copy_binary(&target_dir, CLI_BIN, &bin_dir, true)?;
     // GUI (Tauri) может ещё не существовать: тогда только предупреждение.
     copy_binary(&target_dir, GUI_BIN, &bin_dir, false)?;

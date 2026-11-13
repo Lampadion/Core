@@ -43,6 +43,8 @@ fluent-langneg = "0.14.2"
 unic-langid = "0.9.6"
 # Scripting
 rune = "0.14.2"
+# GUI
+dioxus = { version = "0.7.1", features = [] }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
