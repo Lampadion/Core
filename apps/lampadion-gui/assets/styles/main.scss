@@ -2,6 +2,7 @@
 
 @use "abstracts" as *;
 @use "components/titlebar";
+@use "components/sidebar";
 
 html, body, #main {
     background: transparent !important;
@@ -46,7 +47,7 @@ html {
 .window-container {
 	width: 100%;
 	height: 100%;
-	border-radius: 1.5rem;
+	border-radius: $frame-rounding;
 	box-shadow: $shadow-application;
 	background-color: rgba(0, 0, 0, 0.15);
 	overflow: hidden;
@@ -55,49 +56,49 @@ html {
 }
 
 .main-content {
-	border-radius: 1.25rem;
+	border-radius: $frame-rounding;
 	flex: 1;
 	overflow: auto;
 
 	display: grid;
-	grid-template-columns: 96px auto;
+	grid-template-columns: max-content auto;
 	grid-template-rows: 100%;
 	gap: 0.75rem;
 	padding: 0.75rem;
 
 	&__left-island {
-			display: flex;
-			flex-direction: column;
-			background-color: $background-color-a;
-			box-shadow: $shadow-a-0;
-			border-radius: 1.25rem;
-			gap: 0.75rem;
-			padding: 0.75rem;
-		}
+		display: flex;
+		flex-direction: column;
+		background-color: $background-color-a;
+		box-shadow: $shadow-a-0;
+		border-radius: $frame-rounding;
+		gap: 0.75rem;
+		padding: 0.75rem;
+	}
 
-		&__nav {
-			flex: 1;
-		}
+	&__nav {
+		flex: 1;
+	}
 
-		&__right-island {
-			display: flex;
-			flex-direction: column;
-			background-color: $background-color-a;
-			box-shadow: $shadow-a-0;
-			gap: 0.75rem;
-			flex: 1;
-			border-radius: 1.25rem;
-		}
+	&__right-island {
+		display: flex;
+		flex-direction: column;
+		background-color: $background-color-a;
+		box-shadow: $shadow-a-0;
+		gap: 0.75rem;
+		flex: 1;
+		border-radius: $frame-rounding;
+	}
 
-		&__lists {
-			border-radius: 1.25rem;
-			flex: 1;
-		}
+	&__lists {
+		border-radius: $frame-rounding;
+		flex: 1;
+	}
 
-		&__info-panel {
-			border-radius: 1.25rem;
-			flex: 1;
-		}
+	&__info-panel {
+		border-radius: $frame-rounding;
+		flex: 1;
+	}
 }
 
 button {

@@ -4,6 +4,29 @@ default_platform = "desktop"
 sub_package = "lampadion-gui"
 asset_dir = "assets"
 
+[bundle]
+identifier = "com.nkardaz.lampadion"
+publisher = "Yalla Nkardaz"
+
+copyright = "Copyright © 2026 Yalla Nkardaz"
+category = "Utility"
+
+short_description = "A Unicode text input and composition utility."
+long_description = """
+Lampadion is a cross-platform text input utility
+providing customizable input methods, Unicode composition,
+and multilingual character input.
+"""
+
+icon = [
+  "apps/lampadion-gui/assets/graphics/icons/bundle/icon_32x32.png",
+  "apps/lampadion-gui/assets/graphics/icons/bundle/icon_128x128.png",
+  "apps/lampadion-gui/assets/graphics/icons/bundle/icon_256x256.png",
+  "apps/lampadion-gui/assets/graphics/icons/bundle/icon_512x512.png",
+  "apps/lampadion-gui/assets/graphics/icons/bundle/icon.ico",
+  "apps/lampadion-gui/assets/graphics/icons/bundle/icon.icns",
+]
+
 [web.app]
 
 # HTML title tag content

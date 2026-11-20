@@ -1,0 +1,41 @@
+@use "../abstracts" as *;
+
+.sidebar {
+	&-wrapper {
+		user-select: none;
+	}
+
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	&-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: $background-color-c;
+
+		border-radius: $small-button-rounding;
+		box-shadow: $shadow-a-0;
+
+		width: 2rem;
+		height: 2rem;
+
+	}
+
+	&-icon {
+		filter: drop-shadow($shadow-a-0);
+		width: 75%;
+		height: 75%;
+
+		& rect, & path, & g {
+			fill: $text-c-0 !important;
+
+			& [id*="Accent"],
+			& [id*="Accent"] * {
+				fill: $accent-0 !important;
+			}
+		}
+	}
+
+}
