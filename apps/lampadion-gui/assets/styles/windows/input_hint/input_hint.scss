@@ -1,0 +1,67 @@
+@use "../../kit" as *;
+@use "../../kit/utils/reset";
+
+html, body, #main {
+    background: transparent !important;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+html {
+	font-size: 12pt;
+	line-height: 1.5;
+	-webkit-text-size-adjust: 100%;
+}
+
+#app {
+	padding: 1.25rem;
+
+	width: 100%;
+	height: 100%;
+
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 180ms ease, transform 180ms ease;
+
+  &.is-fading-out {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  &.is-fading-in-start {
+    opacity: 0;
+    transform: scale(0.96);
+    transition: none;
+  }
+
+  &.is-fading-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.window-container {
+	width: 100%;
+	height: 100%;
+	border-radius: $frame-rounding;
+	box-shadow: $shadow-application;
+	background-color: rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.main-content {
+	border-radius: $frame-rounding;
+	background-color: $background-color-a;
+	flex: 1;
+	overflow: auto;
+
+	display: grid;
+	grid-template-columns: max-content auto;
+	grid-template-rows: 100%;
+	gap: 0.75rem;
+	padding: 0.75rem;
+
+}
