@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
 use crate::shared::components::buttons::WindowControlButtons;
-use crate::shared::icons::APP_LOGO;
+use crate::shared::icons::AppLogo;
 
 #[component]
 pub fn Titlebar() -> Element {
@@ -17,10 +17,9 @@ pub fn Titlebar() -> Element {
 			}}
 		>
 			<div class="titlebar__left">
-				<div
-					class="titlebar__logo"
-					dangerous_inner_html={APP_LOGO}
-				/>
+				<div class="titlebar__logo">
+					<AppLogo />
+				</div>
 				<div class="titlebar__title">"Lampadion — {app_version}"</div>
 			</div>
 

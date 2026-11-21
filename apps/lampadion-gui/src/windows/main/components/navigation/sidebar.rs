@@ -1,36 +1,53 @@
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
-use crate::shared::icons::{TAB_COMPOSE, TAB_HOTKEY, TAB_SCRIPT};
+use crate::shared::icons::{TabCompose, TabHotkey, TabScript};
+
+enum NavEntry {
+	Item(fn() -> Element),
+	Divider,
+}
 
 #[component]
 pub fn Sidebar() -> Element {
+	use NavEntry::{Divider, Item};
+
+	let entries = [
+		Item(TabHotkey),
+		Divider,
+		Item(TabHotkey),
+		Item(TabCompose),
+		Item(TabScript),
+		Item(TabHotkey),
+		Item(TabHotkey),
+		Item(TabHotkey),
+		Divider,
+		Item(TabHotkey),
+		Divider,
+		Item(TabHotkey),
+		Item(TabHotkey),
+		Item(TabHotkey),
+	];
+
 	html! {
 		<aside class="sidebar-wrapper">
 			<nav class="sidebar">
-				<SidebarItem icon={TAB_HOTKEY} />
-				<hr />
-				<SidebarItem icon={TAB_HOTKEY} />
-				<SidebarItem icon={TAB_COMPOSE} />
-				<SidebarItem icon={TAB_SCRIPT} />
-				<SidebarItem icon={TAB_HOTKEY} />
-				<SidebarItem icon={TAB_HOTKEY} />
-				<hr />
-				<SidebarItem icon={TAB_HOTKEY} />
-				<hr />
-				<SidebarItem icon={TAB_HOTKEY} />
-				<SidebarItem icon={TAB_HOTKEY} />
-				<SidebarItem icon={TAB_HOTKEY} />
+				{entries.into_iter().map(|entry| match entry {
+					Item(icon) => html! { <SidebarItem>{icon()}</SidebarItem> },
+					Divider => html! { <hr /> },
+				})}
 			</nav>
 		</aside>
 	}
 }
 
 #[component]
-pub fn SidebarItem(icon: String) -> Element {
+pub fn SidebarItem(children: Element) -> Element {
 	html! {
 		<a class="sidebar-item" href="#">
-			<div class="sidebar-icon" dangerous_inner_html="{icon}"></div>
+			<div class="sidebar-icon">
+				{children}
+			</div>
 		</a>
 	}
 }

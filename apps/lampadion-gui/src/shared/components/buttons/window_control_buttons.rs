@@ -3,9 +3,7 @@ use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
 use crate::shared::icons::{
-	CONTROL_CLOSE,
-	CONTROL_MAXIMIZE,
-	CONTROL_MINIMIZE,
+ControlClose, ControlMaximize, ControlMinimize
 };
 
 #[component]
@@ -25,10 +23,9 @@ pub fn WindowControlButtons() -> Element {
 					w_min.set_minimized(true);
 				}}
 			>
-				<div
-					class="titlebar__button__icon"
-					dangerous_inner_html={CONTROL_MINIMIZE}
-				/>
+				<div class="titlebar__button__icon">
+					<ControlMinimize />
+				</div>
 			</button>
 
 			<button
@@ -39,10 +36,9 @@ pub fn WindowControlButtons() -> Element {
 					w_max.set_maximized(!is_max);
 				}}
 			>
-				<div
-					class="titlebar__button__icon"
-					dangerous_inner_html={CONTROL_MAXIMIZE}
-				/>
+				<div class="titlebar__button__icon">
+					<ControlMaximize />
+				</div>
 			</button>
 
 			<button
@@ -52,10 +48,9 @@ pub fn WindowControlButtons() -> Element {
 					w_close.close();
 				}}
 			>
-				<div
-					class="titlebar__button__icon"
-					dangerous_inner_html={CONTROL_CLOSE}
-				/>
+				<div class="titlebar__button__icon">
+					<ControlClose />
+				</div>
 			</button>
 		</div>
 	}
