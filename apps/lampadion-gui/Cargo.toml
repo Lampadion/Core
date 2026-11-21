@@ -17,6 +17,7 @@ path = "src/main.rs"
 [dependencies]
 lampadion-ipc.workspace = true
 dioxus = { workspace = true, features = ["desktop"] }
+dioxus-html-macro.workspace = true
 gloo-timers = { workspace = true, features = ["futures"] }
 
 [features]

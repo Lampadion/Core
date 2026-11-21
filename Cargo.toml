@@ -46,6 +46,7 @@ unic-langid = "0.9.6"
 rune = "0.14.2"
 # GUI
 dioxus = { version = "0.7.10", features = [] }
+dioxus-html-macro = "0.3.0"
 
 gloo-timers = { version = "0.4.0", features = ["futures"] }
 
