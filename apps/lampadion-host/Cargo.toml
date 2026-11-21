@@ -16,6 +16,7 @@ path = "src/main.rs"
 
 [dependencies]
 lampadion-core.workspace = true
+lampadion-ipc.workspace = true
 lampadion-db.workspace = true
 lampadion-config.workspace = true
 lampadion-keyboard = { workspace = true, features = ["backend"] }

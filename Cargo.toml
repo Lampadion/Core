@@ -21,6 +21,7 @@ lampadion-core = { path = "crates/lampadion-core" }
 lampadion-config = { path = "crates/lampadion-config" }
 lampadion-db = { path = "crates/lampadion-db" }
 lampadion-extensions = { path = "crates/lampadion-extensions" }
+lampadion-ipc = { path = "crates/lampadion-ipc" }
 lampadion-keyboard = { path = "crates/lampadion-keyboard", default-features = false }
 lampadion-layout = { path = "crates/lampadion-layout" }
 lampadion-model = { path = "crates/lampadion-model" }

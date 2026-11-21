@@ -15,6 +15,7 @@ name = "gui"
 path = "src/main.rs"
 
 [dependencies]
+lampadion-ipc.workspace = true
 dioxus = { workspace = true, features = ["desktop"] }
 gloo-timers = { workspace = true, features = ["futures"] }
 
