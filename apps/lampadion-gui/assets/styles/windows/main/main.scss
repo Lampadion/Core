@@ -1,7 +1,7 @@
-@use "utils/reset";
+@use "../../kit" as *;
+@use "../../kit/utils/reset";
 
-@use "abstracts" as *;
-@use "components/titlebar";
+@use "../../kit/components/titlebar";
 @use "components/sidebar";
 
 html, body, #main {
