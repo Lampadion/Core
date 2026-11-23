@@ -1,3 +1,5 @@
+pub mod icon;
+pub mod tabs;
 pub fn add(left: u64, right: u64) -> u64 {
 	left + right
 }

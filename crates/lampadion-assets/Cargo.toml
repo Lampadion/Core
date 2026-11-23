@@ -11,6 +11,7 @@ homepage.workspace = true
 repository.workspace = true
 
 [dependencies]
+lampadion-model.workspace = true
 dioxus.workspace = true
 
 [lints]

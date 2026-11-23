@@ -12,6 +12,7 @@ repository.workspace = true
 
 [dependencies]
 lampadion-assets.workspace = true
+lampadion-model.workspace = true
 dioxus.workspace = true
 dioxus-html-macro.workspace = true
 

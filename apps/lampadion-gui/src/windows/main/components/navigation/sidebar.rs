@@ -1,40 +1,28 @@
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
-use lampadion_assets::icons::{TabCompose, TabHotkey, TabScript};
-
-enum NavEntry {
-	Item(fn() -> Element),
-	Divider,
-}
+use lampadion_model::gui::{IconRef, TabId};
+use lampadion_ui::icon::Icon;
+use lampadion_ui::tabs::{TabEntry, TabRegistry};
 
 #[component]
 pub fn Sidebar() -> Element {
-	use NavEntry::{Divider, Item};
-
-	let entries = [
-		Item(TabHotkey),
-		Divider,
-		Item(TabHotkey),
-		Item(TabCompose),
-		Item(TabScript),
-		Item(TabHotkey),
-		Item(TabHotkey),
-		Item(TabHotkey),
-		Divider,
-		Item(TabHotkey),
-		Divider,
-		Item(TabHotkey),
-		Item(TabHotkey),
-		Item(TabHotkey),
-	];
+	let reg = use_context::<TabRegistry>();
+	let entries = reg.entries();
 
 	html! {
 		<aside class="sidebar-wrapper">
 			<nav class="sidebar">
-				{entries.into_iter().map(|entry| match entry {
-					Item(icon) => html! { <SidebarItem>{icon()}</SidebarItem> },
-					Divider => html! { <hr /> },
+				{entries.into_iter().enumerate().map(|(i, entry)| match entry {
+					TabEntry::Item(spec) => rsx! {
+						SidebarItem {
+							key: "{spec.decl.id.as_str()}",
+							id: spec.decl.id.clone(),
+							icon: spec.decl.icon.clone(),
+							title: spec.decl.title.0.to_string(),
+						}
+					},
+					TabEntry::Divider => rsx! { hr { key: "divider-{i}" } },
 				})}
 			</nav>
 		</aside>
@@ -42,12 +30,26 @@ pub fn Sidebar() -> Element {
 }
 
 #[component]
-pub fn SidebarItem(children: Element) -> Element {
-	html! {
-		<a class="sidebar-item" href="#">
-			<div class="sidebar-icon">
-				{children}
-			</div>
-		</a>
+pub fn SidebarItem(id: TabId, icon: IconRef, title: String) -> Element {
+	let mut active = use_context::<Signal<TabId>>();
+	let is_active = *active.read() == id;
+
+	rsx! {
+		a {
+			class: if is_active { "sidebar-item is-active" } else { "sidebar-item" },
+			href: "#",
+			title: "{title}",
+			"data-tab": "{id.as_str()}",
+			onclick: {
+			    let id = id.clone();
+			    move |e| {
+			        e.prevent_default();
+			        active.set(id.clone());
+			    }
+			},
+			div { class: "sidebar-icon",
+				Icon { icon }
+			}
+		}
 	}
 }

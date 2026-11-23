@@ -2,9 +2,7 @@ use dioxus::desktop::use_window;
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
-use lampadion_assets::icons::{
-ControlClose, ControlMaximize, ControlMinimize
-};
+use lampadion_assets::icons::Control;
 
 #[component]
 pub fn WindowControlButtons() -> Element {
@@ -24,7 +22,7 @@ pub fn WindowControlButtons() -> Element {
 				}}
 			>
 				<div class="titlebar__button__icon">
-					<ControlMinimize />
+					{Control::Minimize.render()}
 				</div>
 			</button>
 
@@ -37,7 +35,7 @@ pub fn WindowControlButtons() -> Element {
 				}}
 			>
 				<div class="titlebar__button__icon">
-					<ControlMaximize />
+					{Control::Maximize.render()}
 				</div>
 			</button>
 
@@ -49,7 +47,7 @@ pub fn WindowControlButtons() -> Element {
 				}}
 			>
 				<div class="titlebar__button__icon">
-					<ControlClose />
+					{Control::Close.render()}
 				</div>
 			</button>
 		</div>

@@ -7,11 +7,11 @@ use runtime::context::AppContext;
 use windows::WindowKind;
 
 fn main() {
-    let ctx = AppContext::init();
-    let first = WindowKind::Main;
+	let ctx = AppContext::init();
+	let first = WindowKind::Main;
 
-    LaunchBuilder::desktop()
-        .with_cfg(first.config())
-        .with_context(ctx)
-        .launch(first.root());
+	LaunchBuilder::desktop()
+		.with_cfg(first.config())
+		.with_context(ctx)
+		.launch(first.root());
 }
