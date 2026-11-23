@@ -4,6 +4,15 @@
 //!   dist   собрать workspace и разложить релиз в `dist/Lampadion`
 //!   icons  сгенерировать иконки всех платформ из lampadion.svg
 //!   dgui   запустить Dioxus CLI для разработки GUI
+//! 	web-dev	запустить Dioxus CLI для разработки веб-сайта
+//! 	web-dist	собрать веб-сайт
+//!
+//! 	web-git [--build] [--message <текст>] [--repo <url>]
+//!
+//! 	--build            сначала выполнить web-dist
+//! 	--message <текст>  сообщение коммита (по умолчанию «Update website (Core <hash>)»)
+//! 	--repo <url>       другой репозиторий вместо Lampadion/Lampadion.github.io
+//!
 //!   help   справка
 
 
@@ -48,6 +57,9 @@ fn run() -> Res<()> {
         Some("dist") => dist(&DistOpts::parse(args)?),
 				Some("icons") => icons(&IconsOpts::parse(args)?),
         Some("dgui") => dgui(args),
+        Some("web-dev") => web_dev(args),
+        Some("web-dist") => web_dist(args),
+        Some("web-git") => web_git(args),
         Some("help" | "-h" | "--help") | None => {
             print_help();
             Ok(())
@@ -339,9 +351,10 @@ fn icons(opts: &IconsOpts) -> Res<()> {
 /// Запускает Dioxus CLI для разработки GUI.
 fn dgui(args: impl Iterator<Item = String>) -> Res<()> {
     let root = workspace_root()?;
+    let app_dir = root.join("apps/lampadion-gui");
 
     let status = Command::new("dx")
-        .current_dir(root)
+        .current_dir(app_dir)
         .args(["serve", "--desktop", "--package", "lampadion-gui"])
         .args(args)
         .status()
@@ -351,6 +364,187 @@ fn dgui(args: impl Iterator<Item = String>) -> Res<()> {
         Ok(())
     } else {
         Err("Dioxus CLI завершился с ошибкой".into())
+    }
+}
+
+// ---------------------------------------------------------------------------
+// web
+// ---------------------------------------------------------------------------
+
+/// Запускает Dioxus CLI для разработки Website.
+fn web_dev(args: impl Iterator<Item = String>) -> Res<()> {
+    let root = workspace_root()?;
+    let app_dir = root.join("apps/lampadion-website");
+
+    let status = Command::new("dx")
+        .current_dir(app_dir)
+        .args(["serve", "--web", "--package", "lampadion-website"])
+        .args(args)
+        .status()
+        .map_err(|e| format!("не удалось запустить Dioxus CLI (`dx`): {e}"))?;
+
+    if status.success() {
+        Ok(())
+    } else {
+        Err("Dioxus CLI завершился с ошибкой".into())
+    }
+}
+
+/// Собирает статическую версию Website.
+fn web_dist(args: impl Iterator<Item = String>) -> Res<()> {
+    let root = workspace_root()?;
+    let app_dir = root.join("apps/lampadion-website");
+
+    let status = Command::new("dx")
+        .current_dir(app_dir)
+        .args([
+            "bundle",
+            "--web",
+            "--ssg",
+            "--package",
+            "lampadion-website",
+            "--profile",
+            "web-release",
+        ])
+        .args(args)
+        .status()
+        .map_err(|e| format!("не удалось запустить Dioxus CLI (`dx`): {e}"))?;
+
+    if status.success() {
+        Ok(())
+    } else {
+        Err("сборка Website завершилась с ошибкой".into())
+    }
+}
+
+// ---------------------------------------------------------------------------
+// web-git
+// ---------------------------------------------------------------------------
+
+/// Репозиторий GitHub Pages (отдельный от монорепозитория).
+const WEB_PAGES_REPO: &str = "https://github.com/Lampadion/Lampadion.github.io.git";
+const WEB_PAGES_BRANCH: &str = "main";
+/// Результат `dx bundle` относительно корня workspace.
+const WEB_PUBLIC_DIR: [&str; 6] = ["target", "dx", "lampadion-website", "release", "web", "public"];
+
+struct WebGitOpts {
+    build: bool,
+    message: Option<String>,
+    repo: String,
+}
+
+impl WebGitOpts {
+    fn parse(mut args: impl Iterator<Item = String>) -> Res<Self> {
+        let mut o = Self { build: false, message: None, repo: WEB_PAGES_REPO.into() };
+        while let Some(a) = args.next() {
+            match a.as_str() {
+                "--build" => o.build = true,
+                "-m" | "--message" => {
+                    o.message = Some(args.next().ok_or("после --message нужно сообщение коммита")?);
+                }
+                "--repo" => {
+                    o.repo = args.next().ok_or("после --repo нужен URL репозитория")?;
+                }
+                other => return Err(format!("неизвестный аргумент `{other}`").into()),
+            }
+        }
+        Ok(o)
+    }
+}
+
+/// Публикует собранный Website в репозиторий GitHub Pages (ветка `main`).
+/// История не сохраняется: в ветке всегда один коммит (force push), как у `gh-pages --no-history`.
+fn web_git(args: impl Iterator<Item = String>) -> Res<()> {
+    let opts = WebGitOpts::parse(args)?;
+    let root = workspace_root()?;
+
+    if opts.build {
+        web_dist(std::iter::empty())?;
+    }
+
+    let public = WEB_PUBLIC_DIR.iter().fold(root.clone(), |p, s| p.join(s));
+    if !public.is_dir() {
+        return Err(format!(
+            "не найден {} (сначала `cargo xtask web-dist` или флаг --build)",
+            public.display()
+        )
+        .into());
+    }
+
+    // Единственный коммит это и есть вся «история», поэтому в сообщении фиксируем,
+    // из какого коммита монорепозитория собран сайт.
+    let message = opts.message.unwrap_or_else(|| {
+        let rev = git_out(&root, &["rev-parse", "--short", "HEAD"])
+            .map(|s| s.trim().to_string())
+            .unwrap_or_default();
+        if rev.is_empty() {
+            "Update website".to_string()
+        } else {
+            format!("Update website (Core {rev})")
+        }
+    });
+
+    // Пустой репозиторий вместо клона: предыдущие коммиты не нужны.
+    let work = root.join("target").join("web-git");
+    if work.exists() {
+        fs::remove_dir_all(&work)?;
+    }
+    fs::create_dir_all(&work)?;
+    run_git(&work, &["init"])?;
+    // Имя ветки задаём напрямую: не зависит от init.defaultBranch и версии git.
+    run_git(&work, &["symbolic-ref", "HEAD", &format!("refs/heads/{WEB_PAGES_BRANCH}")])?;
+    run_git(&work, &["remote", "add", "origin", &opts.repo])?;
+
+    // CNAME (кастомный домен) берём из текущей публикации, если сборка его не содержит.
+    // Для пустого удалённого репозитория fetch просто не удастся, это не ошибка.
+    let cname = git_out(&work, &["fetch", "--depth", "1", "origin", WEB_PAGES_BRANCH])
+        .ok()
+        .and_then(|_| git_out(&work, &["show", "FETCH_HEAD:CNAME"]).ok());
+
+    copy_dir(&public, &work)?;
+    if let Some(c) = cname {
+        if !work.join("CNAME").exists() {
+            fs::write(work.join("CNAME"), c)?;
+        }
+    }
+    // Отключает Jekyll-обработку на GitHub Pages (файлы с `_` в начале имени и т. п.).
+    if !work.join(".nojekyll").exists() {
+        fs::write(work.join(".nojekyll"), b"")?;
+    }
+
+    run_git(&work, &["add", "-A"])?;
+    run_git(&work, &["commit", "-m", &message])?;
+    run_git(&work, &["push", "--force", "origin", WEB_PAGES_BRANCH])?;
+
+    println!("Опубликовано одним коммитом: {} ({WEB_PAGES_BRANCH})", opts.repo);
+    Ok(())
+}
+
+/// Запускает `git` с выводом в консоль; ошибка при ненулевом коде.
+fn run_git(dir: &Path, args: &[&str]) -> Res<()> {
+    let status = Command::new("git")
+        .current_dir(dir)
+        .args(args)
+        .status()
+        .map_err(|e| format!("не удалось запустить `git` (установлен и есть в PATH?): {e}"))?;
+    if status.success() {
+        Ok(())
+    } else {
+        Err(format!("`git {}` завершился с ошибкой", args.join(" ")).into())
+    }
+}
+
+/// Запускает `git` и возвращает stdout.
+fn git_out(dir: &Path, args: &[&str]) -> Res<String> {
+    let out = Command::new("git")
+        .current_dir(dir)
+        .args(args)
+        .output()
+        .map_err(|e| format!("не удалось запустить `git` (установлен и есть в PATH?): {e}"))?;
+    if out.status.success() {
+        Ok(String::from_utf8_lossy(&out.stdout).into_owned())
+    } else {
+        Err(format!("`git {}` завершился с ошибкой", args.join(" ")).into())
     }
 }
 

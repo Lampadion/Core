@@ -15,6 +15,7 @@ repository = "https://github.com/Lampadion/Core"
 
 [workspace.dependencies]
 # Workspace
+lampadion-assets = { path = "crates/lampadion-assets" }
 lampadion-binding = { path = "crates/lampadion-binding" }
 lampadion-compose = { path = "crates/lampadion-compose" }
 lampadion-core = { path = "crates/lampadion-core" }
@@ -28,6 +29,7 @@ lampadion-model = { path = "crates/lampadion-model" }
 lampadion-modes = { path = "crates/lampadion-modes" }
 lampadion-scripting = { path = "crates/lampadion-scripting" }
 lampadion-search = { path = "crates/lampadion-search" }
+lampadion-ui = { path = "crates/lampadion-ui" }
 lampadion-unicode = { path = "crates/lampadion-unicode" }
 lampadion-l10n = { path = "crates/lampadion-l10n" }
 # Unicode
@@ -61,3 +63,16 @@ unwrap_used = "warn"
 expect_used = "warn"
 panic = "warn"
 collapsible_if = "warn"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+debug = false
+incremental = false
+
+[profile.web-release]
+inherits = "release"
+opt-level = "z"
+lto = true
+panic = "abort"

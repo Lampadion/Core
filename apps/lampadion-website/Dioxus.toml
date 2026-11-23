@@ -1,0 +1,17 @@
+[application]
+name = "Lampadion.github.io"
+default_platform = "web"
+
+[web]
+pre_compress = true
+
+[web.app]
+title = "Lampadion"
+base_path = ""
+
+[web.watcher]
+reload_html = true
+
+[web.wasm_opt]
+level = "z"
+debug = false

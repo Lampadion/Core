@@ -1,4 +1,4 @@
-pub mod icons;
+// pub mod icons;
 pub mod components;
 
 #[macro_export]

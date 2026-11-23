@@ -1,0 +1,19 @@
+[package]
+name = "lampadion-ui"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+categories.workspace = true
+keywords.workspace = true
+homepage.workspace = true
+repository.workspace = true
+
+[dependencies]
+lampadion-assets.workspace = true
+dioxus.workspace = true
+dioxus-html-macro.workspace = true
+
+[lints]
+workspace = true

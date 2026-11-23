@@ -1,8 +1,6 @@
 [application]
 name = "lampadion-gui"
 default_platform = "desktop"
-sub_package = "lampadion-gui"
-asset_dir = "assets"
 
 [bundle]
 identifier = "com.nkardaz.lampadion"
