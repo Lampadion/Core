@@ -4,8 +4,8 @@ mod views;
 mod components;
 
 use self::layout::AppLayout;
-use crate::window_scss;
 use crate::windows::common::{base_config, frameless};
+use lampadion_assets::styles::WINDOW_MAIN;
 
 use dioxus::desktop::{Config, LogicalSize};
 use dioxus::prelude::*;
@@ -20,7 +20,8 @@ pub fn config() -> Config {
 #[component]
 pub fn Root() -> Element {
 	rsx! {
-		document::Stylesheet { href: window_scss!("main") }
+		// document::Stylesheet { href: window_scss!("main") }
+		document::Stylesheet { href: WINDOW_MAIN }
 		AppLayout {}
 	}
 }

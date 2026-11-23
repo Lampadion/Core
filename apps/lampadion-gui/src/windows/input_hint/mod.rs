@@ -1,8 +1,8 @@
 mod layout;
 
 use self::layout::AppLayout;
-use crate::window_scss;
 use crate::windows::common::{base_config, frameless};
+use lampadion_assets::styles::WINDOW_INPUT_HINT;
 
 use dioxus::desktop::{Config, LogicalSize};
 use dioxus::prelude::*;
@@ -17,7 +17,7 @@ pub fn config() -> Config {
 #[component]
 pub fn Root() -> Element {
 	rsx! {
-		document::Stylesheet { href: window_scss!("input_hint") }
+		document::Stylesheet { href: WINDOW_INPUT_HINT }
 		AppLayout {}
 	}
 }

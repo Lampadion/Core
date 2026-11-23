@@ -1,8 +1,8 @@
 mod layout;
 
 use self::layout::AppLayout;
-use crate::window_scss;
 use crate::windows::common::{base_config, frameless};
+use lampadion_assets::styles::WINDOW_MODE_PICKER;
 
 use dioxus::desktop::{Config, LogicalSize};
 use dioxus::prelude::*;
@@ -17,7 +17,7 @@ pub fn config() -> Config {
 #[component]
 pub fn Root() -> Element {
 	rsx! {
-		document::Stylesheet { href: window_scss!("mode_picker") }
+		document::Stylesheet { href: WINDOW_MODE_PICKER }
 		AppLayout {}
 	}
 }
