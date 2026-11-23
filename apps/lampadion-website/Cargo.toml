@@ -13,8 +13,12 @@ repository.workspace = true
 [dependencies]
 lampadion-assets.workspace = true
 lampadion-ui.workspace = true
-dioxus = { workspace = true, features = ["fullstack"] }
+dioxus = { workspace = true, features = ["web"] }
 dioxus-html-macro.workspace = true
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
 
 [lints]
 workspace = true

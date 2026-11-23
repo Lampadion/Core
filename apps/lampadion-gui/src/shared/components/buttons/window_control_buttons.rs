@@ -2,7 +2,7 @@ use dioxus::desktop::use_window;
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
-use crate::shared::icons::{
+use lampadion_assets::icons::{
 ControlClose, ControlMaximize, ControlMinimize
 };
 

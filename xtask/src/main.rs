@@ -3,7 +3,7 @@
 //! Команды:
 //!   dist   собрать workspace и разложить релиз в `dist/Lampadion`
 //!   icons  сгенерировать иконки всех платформ из lampadion.svg
-//!   dgui   запустить Dioxus CLI для разработки GUI
+//!   gui-dev   запустить Dioxus CLI для разработки GUI
 //! 	web-dev	запустить Dioxus CLI для разработки веб-сайта
 //! 	web-dist	собрать веб-сайт
 //!
@@ -56,7 +56,7 @@ fn run() -> Res<()> {
     match args.next().as_deref() {
         Some("dist") => dist(&DistOpts::parse(args)?),
 				Some("icons") => icons(&IconsOpts::parse(args)?),
-        Some("dgui") => dgui(args),
+        Some("gui-dev") => gui_dev(args),
         Some("web-dev") => web_dev(args),
         Some("web-dist") => web_dist(args),
         Some("web-git") => web_git(args),
@@ -345,11 +345,11 @@ fn icons(opts: &IconsOpts) -> Res<()> {
 }
 
 // ---------------------------------------------------------------------------
-// dgui
+// gui_dev
 // ---------------------------------------------------------------------------
 
 /// Запускает Dioxus CLI для разработки GUI.
-fn dgui(args: impl Iterator<Item = String>) -> Res<()> {
+fn gui_dev(args: impl Iterator<Item = String>) -> Res<()> {
     let root = workspace_root()?;
     let app_dir = root.join("apps/lampadion-gui");
 
@@ -400,7 +400,6 @@ fn web_dist(args: impl Iterator<Item = String>) -> Res<()> {
         .args([
             "bundle",
             "--web",
-            "--ssg",
             "--package",
             "lampadion-website",
             "--profile",

@@ -3,7 +3,7 @@ name = "Lampadion.github.io"
 default_platform = "web"
 
 [web]
-pre_compress = true
+pre_compress = false
 
 [web.app]
 title = "Lampadion"

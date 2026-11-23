@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
 use crate::shared::components::buttons::WindowControlButtons;
-use crate::shared::icons::AppLogo;
+use lampadion_assets::icons::AppLogo;
 
 #[component]
 pub fn Titlebar() -> Element {

@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
-use crate::shared::icons::{TabCompose, TabHotkey, TabScript};
+use lampadion_assets::icons::{TabCompose, TabHotkey, TabScript};
 
 enum NavEntry {
 	Item(fn() -> Element),
