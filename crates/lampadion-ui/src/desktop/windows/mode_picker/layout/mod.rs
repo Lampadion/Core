@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
-use crate::shared::components::common::Titlebar;
+use crate::desktop::shared::components::common::Titlebar;
 
 #[component]
 pub fn AppLayout() -> Element {

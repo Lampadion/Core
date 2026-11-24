@@ -1,9 +1,9 @@
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
+use crate::icon::Icon;
+use crate::tabs::{TabEntry, TabRegistry};
 use lampadion_model::gui::{IconRef, TabId};
-use lampadion_ui::icon::Icon;
-use lampadion_ui::tabs::{TabEntry, TabRegistry};
 
 #[component]
 pub fn Sidebar() -> Element {

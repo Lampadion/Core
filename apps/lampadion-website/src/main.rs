@@ -1,18 +1,5 @@
-use dioxus::prelude::*;
-use lampadion_assets::icons::FAVICON;
+use lampadion_ui::website::App;
 
 fn main() {
-    dioxus::launch(App);
-}
-
-#[component]
-fn App() -> Element {
-	rsx! {
-		document::Link { rel: "icon", href: FAVICON, r#type: "image/svg+xml" }
-
-		main {
-			h1 { "Лампадион" }
-			p { "Тестовая сборка веб-сайта на Rust + Dioxus" }
-		}
-	}
+	dioxus::launch(App);
 }

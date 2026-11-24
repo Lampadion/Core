@@ -1,8 +1,8 @@
 use dioxus::prelude::*;
 use lampadion_model::gui::TabId;
-use lampadion_ui::tabs::TabRegistry;
 
 use super::tabs_builtin::register_builtin_tabs;
+use crate::tabs::TabRegistry;
 
 const DEFAULT_TAB: &str = "main:home";
 

@@ -1,9 +1,9 @@
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
-use super::views::HomeView;
 use super::components::navigation::Sidebar;
-use crate::shared::components::common::Titlebar;
+use super::views::HomeView;
+use crate::desktop::shared::components::common::Titlebar;
 
 #[component]
 pub fn AppLayout() -> Element {
