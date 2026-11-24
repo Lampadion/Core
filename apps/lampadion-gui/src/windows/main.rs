@@ -1,7 +1,7 @@
 use crate::runtime::{context::AppContext, window_manager};
 use crate::windows::common::{base_config, frameless};
 use crate::windows::WindowKind;
-use lampadion_assets::styles::WINDOW_MAIN;
+use lampadion_assets::styles::{RESET, WINDOW_MAIN};
 use lampadion_ui::desktop::shared::controls::WindowControls;
 use lampadion_ui::desktop::windows::main::{use_window_context, AppLayout, MainWindowActions};
 
@@ -61,6 +61,7 @@ pub fn Root() -> Element {
 	use_window_context();
 
 	rsx! {
+		document::Stylesheet { href: RESET }
 		document::Stylesheet { href: WINDOW_MAIN }
 		AppLayout {}
 	}

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 
 use crate::desktop::windows::main::{use_window_context, AppLayout};
 use lampadion_assets::icons::FAVICON;
-use lampadion_assets::styles::WINDOW_MAIN;
+use lampadion_assets::styles::{RESET, WEBSITE_MAIN, WINDOW_MAIN};
 
 #[component]
 pub fn App() -> Element {
@@ -20,11 +20,11 @@ pub fn App() -> Element {
 
 #[component]
 pub fn AppPreview() -> Element {
-	// Вкладки и активная вкладка. Колбэков окна и действий нет,
-	// поэтому use_window_controls() и use_main_window_actions() вернут заглушки.
 	use_window_context();
 
 	rsx! {
+		document::Stylesheet { href: RESET }
+		document::Stylesheet { href: WEBSITE_MAIN }
 		document::Stylesheet { href: WINDOW_MAIN }
 
 		article {

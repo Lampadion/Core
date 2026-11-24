@@ -1,5 +1,5 @@
 use crate::windows::common::{base_config, frameless};
-use lampadion_assets::styles::WINDOW_MODE_PICKER;
+use lampadion_assets::styles::{RESET, WINDOW_MODE_PICKER};
 use lampadion_ui::desktop::shared::controls::WindowControls;
 use lampadion_ui::desktop::windows::mode_picker::AppLayout;
 
@@ -37,6 +37,7 @@ pub fn Root() -> Element {
 	use_context_provider(|| WindowControls { drag, minimize, maximize, close });
 
 	rsx! {
+		document::Stylesheet { href: RESET }
 		document::Stylesheet { href: WINDOW_MODE_PICKER }
 		AppLayout {}
 	}

@@ -1,5 +1,6 @@
-@use "../../kit" as *;
-@use "../../kit/utils/reset";
+@use "../../../kit" as *;
+
+@use "../../../kit/components/titlebar";
 
 html, body, #main {
     background: transparent !important;

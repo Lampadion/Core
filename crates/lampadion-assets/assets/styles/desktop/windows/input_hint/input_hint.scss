@@ -1,8 +1,4 @@
-@use "../../kit" as *;
-@use "../../kit/utils/reset";
-
-@use "../../kit/components/titlebar";
-@use "components/sidebar";
+@use "../../../kit" as *;
 
 html, body, #main {
     background: transparent !important;
@@ -57,6 +53,7 @@ html {
 
 .main-content {
 	border-radius: $frame-rounding;
+	background-color: $background-color-a;
 	flex: 1;
 	overflow: auto;
 
@@ -66,43 +63,4 @@ html {
 	gap: 0.75rem;
 	padding: 0.75rem;
 
-	&__left-island {
-		display: flex;
-		flex-direction: column;
-		background-color: $background-color-a;
-		box-shadow: $shadow-a-0;
-		border-radius: $frame-rounding;
-		gap: 0.75rem;
-		padding: 0.75rem;
-	}
-
-	&__nav {
-		flex: 1;
-	}
-
-	&__right-island {
-		display: flex;
-		flex-direction: column;
-		background-color: $background-color-a;
-		box-shadow: $shadow-a-0;
-		gap: 0.75rem;
-		flex: 1;
-		border-radius: $frame-rounding;
-	}
-
-	&__lists {
-		border-radius: $frame-rounding;
-		flex: 1;
-	}
-
-	&__info-panel {
-		border-radius: $frame-rounding;
-		flex: 1;
-	}
-}
-
-button {
-	&:hover {
-		background-color: $btn-background-common;
-	}
 }
