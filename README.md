@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/Lampadion/Graphics/raw/refs/heads/main/icons/app/lampadion.svg" width="96"/>
+</p>
+
 $$
 \begin{array}{c}
 \Large \color{#e2b041}\mathbf{Lampadion} \\
