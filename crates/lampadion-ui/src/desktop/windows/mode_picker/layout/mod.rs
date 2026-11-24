@@ -4,7 +4,7 @@ use dioxus_html_macro::html;
 use crate::desktop::shared::components::common::Titlebar;
 
 #[component]
-pub fn AppLayout() -> Element {
+pub fn DesktopModePickerLayout() -> Element {
 	html! {
 		<div id="app">
 			<div class="window-container">

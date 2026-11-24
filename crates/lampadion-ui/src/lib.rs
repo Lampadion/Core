@@ -1,4 +1,5 @@
-pub mod website;
+pub mod shared;
 pub mod desktop;
-pub mod icon;
-pub mod tabs;
+
+#[cfg(feature = "website")]
+pub mod website;

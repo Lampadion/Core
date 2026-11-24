@@ -1,3 +1,3 @@
 mod layout;
 
-pub use layout::AppLayout;
+pub use layout::DekstopInputHintLayout;

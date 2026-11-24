@@ -1,8 +1,8 @@
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
-use crate::icon::Icon;
-use crate::tabs::{TabEntry, TabRegistry};
+use crate::shared::icon::Icon;
+use crate::desktop::tabs::{TabEntry, TabRegistry};
 use lampadion_model::gui::{IconRef, TabId};
 
 #[component]

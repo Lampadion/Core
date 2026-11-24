@@ -6,7 +6,7 @@ default_platform = "web"
 pre_compress = false
 
 [web.app]
-title = "Lampadion"
+# title = "Lampadion"
 base_path = ""
 
 [web.watcher]

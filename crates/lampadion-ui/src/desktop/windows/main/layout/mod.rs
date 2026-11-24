@@ -1,12 +1,12 @@
 use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
-use super::components::navigation::Sidebar;
-use super::views::HomeView;
+use crate::desktop::windows::main::components::navigation::Sidebar;
+use crate::desktop::windows::main::views::HomeView;
 use crate::desktop::shared::components::common::Titlebar;
 
 #[component]
-pub fn AppLayout() -> Element {
+pub fn DesktopApplicationLayout() -> Element {
 	html! {
 		<div id="app">
 			<div class="window-container">

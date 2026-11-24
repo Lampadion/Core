@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/*", "apps/*", "xtask"]
+members = ["crates/*", "apps/*", "xtask", "data"]
 resolver = "3"
 
 [workspace.package]
@@ -32,6 +32,7 @@ lampadion-search = { path = "crates/lampadion-search" }
 lampadion-ui = { path = "crates/lampadion-ui" }
 lampadion-unicode = { path = "crates/lampadion-unicode" }
 lampadion-l10n = { path = "crates/lampadion-l10n" }
+data = { path = "data" }
 # Unicode
 icu = { version = "2.4.0", features = ["compiled_data", "serde", "sync"] }
 # Input
@@ -51,6 +52,7 @@ dioxus = { version = "0.7.10", features = [] }
 dioxus-html-macro = "0.3.0"
 
 gloo-timers = { version = "0.4.0", features = ["futures"] }
+gloo-net = { version = "0.8.0" }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"

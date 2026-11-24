@@ -3,7 +3,7 @@ use lampadion_model::gui::{
 	DividerAfter, L10nKey, TabContent, TabDecl, TabGroupDecl, TabGroupId, TabId,
 };
 
-use crate::tabs::{TabRegistry, TabSource};
+use crate::desktop::tabs::{TabRegistry, TabSource};
 
 pub fn register_builtin_tabs(reg: &mut TabRegistry) {
 	let group = |name: &str| TabGroupId::new(format!("main:{name}")).unwrap();

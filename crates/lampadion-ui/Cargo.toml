@@ -11,10 +11,15 @@ homepage.workspace = true
 repository.workspace = true
 
 [dependencies]
+data.workspace = true
 lampadion-assets.workspace = true
 lampadion-model.workspace = true
 dioxus.workspace = true
 dioxus-html-macro.workspace = true
+gloo-net = { workspace = true, optional = true }
 
 [lints]
 workspace = true
+
+[features]
+website = ["data/web-assets", "dep:gloo-net"]

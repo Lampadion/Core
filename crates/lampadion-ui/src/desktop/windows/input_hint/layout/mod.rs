@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_html_macro::html;
 
 #[component]
-pub fn AppLayout() -> Element {
+pub fn DekstopInputHintLayout() -> Element {
 	html! {
 		<div id="app">
 			<div class="window-container">
