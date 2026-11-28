@@ -10,9 +10,7 @@ use dioxus::prelude::*;
 
 pub fn config() -> Config {
 	let size = LogicalSize::new(1280.0, 900.0);
-	base_config(
-		frameless("Lampadion", size).with_min_inner_size(size),
-	)
+	base_config("desktop-application__main-window-root", frameless("Lampadion", size).with_min_inner_size(size))
 }
 
 #[component]
@@ -61,8 +59,8 @@ pub fn Root() -> Element {
 	use_window_context();
 
 	rsx! {
-        document::Stylesheet { href: RESET }
-        document::Stylesheet { href: WINDOW_MAIN }
-        DesktopApplicationLayout {}
-    }
+		document::Stylesheet { href: RESET }
+		document::Stylesheet { href: WINDOW_MAIN }
+		DesktopApplicationLayout {}
+	}
 }

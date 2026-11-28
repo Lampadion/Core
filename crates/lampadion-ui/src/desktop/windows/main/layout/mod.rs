@@ -8,7 +8,7 @@ use crate::desktop::shared::components::common::Titlebar;
 #[component]
 pub fn DesktopApplicationLayout() -> Element {
 	html! {
-		<div id="app">
+		<div id="desktop-application__main-window-root">
 			<div class="window-container">
 				<Titlebar />
 				<main class="main-content">

@@ -17,12 +17,12 @@ and multilingual character input.
 """
 
 icon = [
-  "apps/lampadion-gui/assets/graphics/icons/bundle/icon_32x32.png",
-  "apps/lampadion-gui/assets/graphics/icons/bundle/icon_128x128.png",
-  "apps/lampadion-gui/assets/graphics/icons/bundle/icon_256x256.png",
-  "apps/lampadion-gui/assets/graphics/icons/bundle/icon_512x512.png",
-  "apps/lampadion-gui/assets/graphics/icons/bundle/icon.ico",
-  "apps/lampadion-gui/assets/graphics/icons/bundle/icon.icns",
+  "crates/lampadion-assets/assets/graphics/icons/bundle/icon_32x32.png",
+  "crates/lampadion-assets/assets/graphics/icons/bundle/icon_128x128.png",
+  "crates/lampadion-assets/assets/graphics/icons/bundle/icon_256x256.png",
+  "crates/lampadion-assets/assets/graphics/icons/bundle/icon_512x512.png",
+  "crates/lampadion-assets/assets/graphics/icons/bundle/icon.ico",
+  "crates/lampadion-assets/assets/graphics/icons/bundle/icon.icns",
 ]
 
 [web.app]
@@ -49,3 +49,6 @@ script = []
 # Javascript code file
 # serve: [dev-server] only
 script = []
+
+[web.wasm-opt]
+level = "z"

@@ -36,5 +36,6 @@ pub fn register_builtin_tabs(reg: &mut TabRegistry) {
 	add("ime",       "content",   30, TabIcon::Script,  TabContent::IME);
 	add("ipa",       "content",   40, TabIcon::Script,  TabContent::IPA);
 	add("favorites", "favorites", 0,  TabIcon::Hotkey,  TabContent::Favorites);
+	add("help",  		"system",    80, TabIcon::Hotkey,  TabContent::Custom("main:help".into()));
 	add("settings",  "system",    90, TabIcon::Hotkey,  TabContent::Custom("main:settings".into()));
 }

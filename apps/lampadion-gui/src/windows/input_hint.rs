@@ -7,16 +7,14 @@ use dioxus::prelude::*;
 
 pub fn config() -> Config {
 	let size = LogicalSize::new(400.0, 200.0);
-	base_config(
-		frameless("Lampadion — Input hint", size).with_min_inner_size(size),
-	)
+	base_config("desktop-application__input-hint-window-root", frameless("Lampadion — Input hint", size).with_min_inner_size(size))
 }
 
 #[component]
 pub fn Root() -> Element {
 	rsx! {
-        document::Stylesheet { href: RESET }
-        document::Stylesheet { href: WINDOW_INPUT_HINT }
-        DekstopInputHintLayout {}
-    }
+		document::Stylesheet { href: RESET }
+		document::Stylesheet { href: WINDOW_INPUT_HINT }
+		DekstopInputHintLayout {}
+	}
 }

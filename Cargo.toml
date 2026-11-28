@@ -78,3 +78,4 @@ inherits = "release"
 opt-level = "z"
 lto = true
 panic = "abort"
+strip = "debuginfo"

@@ -18,9 +18,10 @@ pub fn frameless(title: &str, size: LogicalSize<f64>) -> WindowBuilder {
 	window
 }
 
-pub fn base_config(window: WindowBuilder) -> Config {
+pub fn base_config(root_name: &str, window: WindowBuilder) -> Config {
 	Config::new()
 		.with_menu(None)
 		.with_background_color((0, 0, 0, 0))
+		.with_root_name(root_name)
 		.with_window(window)
 }

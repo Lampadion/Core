@@ -54,6 +54,22 @@ Key bindings depend on the active layout set, so the same physical gesture can p
 | Latin | `RAlt + A` / `RAlt + Z` | `Ă` / `Ż` |
 | Cyrillic | `RAlt + Ф` / `RAlt + Я` | `Ѳ` / `Ѧ` |
 
+```mermaid
+flowchart LR
+    KEY(["One physical key<br/>+ RAlt"]):::io
+    LAY["Active layout<br/>detection"]:::platform
+    LAT["Latin set<br/>logical key A<br/>RAlt + A → Ă"]:::core
+    CYR["Cyrillic set<br/>logical key Ф<br/>RAlt + Ф → Ѳ"]:::core
+
+    KEY --> LAY
+    LAY -->|"English layout"| LAT
+    LAY -->|"Russian layout"| CYR
+
+    classDef platform fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a
+    classDef core fill:#fef3c7,stroke:#e2b041,color:#78350f
+    classDef io fill:#f3f4f6,stroke:#6b7280,color:#111827
+```
+
 Lampadion distinguishes the physical key, the scancode/keycode, the modifiers (left and right variants are separate: `RAlt + A` is not `LAlt + A`), the active layout, a logical key identifier and the resulting character. User-defined bindings are supported.
 
 ### Compose / Forge
@@ -61,6 +77,23 @@ Lampadion distinguishes the physical key, the scancode/keycode, the modifiers (l
 Type a sequence, get a different character or sequence. Recipes are processed by a sequence engine, not looked up in a flat hotkey table, which leaves room for more complex sequences and different processing modes.
 
 `AE` → `Æ` · `OE` → `Œ` · `TH` → `Þ` · `ІѦ` → `Ѩ` · `ЯЕ` → `Ԙ` · `ⰦⰤ` → `Ⱙ` · `Ups` → `Ʊ`
+
+```mermaid
+flowchart LR
+    ON(["Compose<br/>mode on"]):::io
+    BUF["Sequence buffer<br/>A → E"]:::core
+    LOOK{{"Recipe lookup"}}:::core
+    WAIT["Prefix of a longer recipe<br/>wait for the next key"]:::core
+    DONE(["Full match<br/>Æ"]):::io
+    NONE["No match<br/>sequence cancelled"]:::core
+
+    ON --> BUF --> LOOK
+    LOOK --> WAIT & DONE & NONE
+    WAIT -.->|"next key"| BUF
+
+    classDef core fill:#fef3c7,stroke:#e2b041,color:#78350f
+    classDef io fill:#f3f4f6,stroke:#6b7280,color:#111827
+```
 
 Recipes can reference other entries, so `A` + the combining acute accent is written as a reference rather than a literal. User-defined recipes are supported.
 
@@ -88,9 +121,33 @@ A character can have many related variants defined by Unicode. For `A`:
 
 Special modes cover Regional Indicator Symbols and Unicode Tags.
 
-### Language-specific input modes
+### IME-like input modes
 
-Sequence-based modes in the spirit of Vietnamese Telex/VNI, for Vietnamese, Jarai and Hànyǔ Pīnyīn. The architecture leaves room for further phonetic and orthographic input schemes.
+Some writing systems cannot be typed with single key combinations or fixed sequences. Their input has to be interpreted as it goes: the same keys mean different things depending on what has already been typed. IME-like modes cover this. They work the way an input method editor does, keeping track of the current syllable or word and rewriting it as more keys arrive.
+
+The modes are modelled on Vietnamese Telex and VNI. In a Telex-style scheme, a letter followed by a marker key turns into an accented letter, and the earlier output is replaced by the new result:
+
+| Typed | Result |
+|---|---|
+| `a` `a` | `â` |
+| `d` `d` | `đ` |
+| `a` `s` | `á` |
+
+```mermaid
+flowchart LR
+    INP(["Keystroke"]):::io
+    MODE{{"IME-like mode<br/>applies its rules"}}:::core
+    BUF["Current syllable<br/>a"]:::core
+    OUT(["Text updated<br/>a → á"]):::io
+
+    INP --> MODE --> OUT
+    MODE <--> BUF
+
+    classDef core fill:#fef3c7,stroke:#e2b041,color:#78350f
+    classDef io fill:#f3f4f6,stroke:#6b7280,color:#111827
+```
+
+Modes are planned for Vietnamese, Hànyǔ Pīnyīn, Jarai and romanization systems of other Chinese varieties: Southern Min (Pe̍h-ōe-jī), Eastern Min (Bàng-uâ-cê), Northern Min (Kienning Colloquial Romanized), Hakka (Pha̍k-fa-sṳ), Hainanese (Bǽh-oe-tu) and so on, each with its own rules. Compared to Compose, which matches a complete sequence against a recipe, an IME-like mode makes a decision after every keystroke. In the character database these modes are declared as `IME` modes of a binding (see below). The architecture leaves room for further phonetic and orthographic input schemes.
 
 ### Multiple representations
 
@@ -199,6 +256,7 @@ Characters are described in RON files. Each entry is one character together with
 - `CharacterEntry` is a single character;
 - `CharactersEntry` takes the same fields, but holds several code points (`codepoints`) and characters (`characters`) in one entry;
 - `TemplateEntry` generates a family of entries from an `id_template` and a list of `members`; fields set at the root act as the base for every member.
+
 ```ron
 // Illustrative example
 CharacterEntry(
@@ -242,7 +300,7 @@ TemplateEntry(
 
 Highlights of the format:
 
-- **Bindings live in the entry, grouped by mode.** `Mode(Default, …)` is always active, `Mode(Domain(…), …)` belongs to an activable input domain (for example, Germanic runes), and `Mode(IME(…), …)` to an IME-style mode (for example, Vietnamese or Hànyǔ Pīnyīn). A bind is a key plus a list of modifiers, where left and right variants are distinct (`RightAlt`, `LeftAlt`, `RightControl`, and so on).
+- **Bindings live in the entry, grouped by mode.** `Mode(Default, …)` is always active, `Mode(Domain(…), …)` belongs to an activable input domain (for example, Germanic runes), and `Mode(IME(…), …)` to an IME-like mode (for example, Vietnamese or Hànyǔ Pīnyīn). A bind is a key plus a list of modifiers, where left and right variants are distinct (`RightAlt`, `LeftAlt`, `RightControl`, and so on).
 - **Binds can also be stored separately.** A bind has its own `id`, so a dedicated bind file can override it, and there it must name its `target_entry` explicitly. Inside an entry, the target is inferred.
 - **Forge sequences.** `sequences` lists what must be typed in Forge mode to reach the character; `shown_sequence` is what the GUI displays.
 - **Variations.** `variation_of` marks an entry as a variant of another one, and `hidden` keeps it out of the main lists.

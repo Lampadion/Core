@@ -5,6 +5,6 @@ fn main() {
 	dioxus::logger::init(dioxus::logger::tracing::Level::INFO).expect("logger");
 
 	LaunchBuilder::new()
-		.with_cfg(dioxus::web::Config::new().rootname("website-app"))
+		.with_cfg(dioxus::web::Config::new().rootname("website-root"))
 		.launch(App);
 }
